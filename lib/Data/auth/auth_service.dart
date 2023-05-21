@@ -10,7 +10,7 @@ import '../Models/user.dart';
 
 // const baseUrl = 'http://127.0.0.1:8000/';
 // const baseUrl = 'http://192.168.100.30:8000/';
-const baseUrl = 'http://192.168.101.54:8000/';
+const baseUrl = 'http://192.168.0.102:8000/';
 
 const login = '$baseUrl/login_P/';
 const signUpUrl = '$baseUrl/patient_rg/';

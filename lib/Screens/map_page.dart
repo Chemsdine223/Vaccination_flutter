@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
+// import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:latlong2/latlong.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+// import 'package:latlong2/latlong.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({super.key});
@@ -56,26 +57,38 @@ class _MapPageState extends State<MapPage> {
     return position;
   }
 
-  List<Marker> markers = [
-    Marker(
-      width: 80.0,
-      height: 80.0,
-      point: LatLng(18.10089, -15.991947409354378),
-      builder: (ctx) => const Icon(Icons.location_on),
-    ),
-    Marker(
-      width: 100.0,
-      height: 100.0,
-      point: LatLng(18.10089, -15.991947409354378),
-      builder: (ctx) => const Icon(
-        Icons.location_on,
-        size: 40,
-      ),
-    ),
-  ];
+  // List<Marker> markers = [
+  //   Marker(
+  //     width: 80.0,
+  //     height: 80.0,
+  //     point: LatLng(18.10089, -15.991947409354378),
+  //     builder: (ctx) => const Icon(Icons.location_on),
+  //   ),
+  //   Marker(
+  //     width: 100.0,
+  //     height: 100.0,
+  //     point: LatLng(18.10089, -15.991947409354378),
+  //     builder: (ctx) => const Icon(
+  //       Icons.location_on,
+  //       size: 40,
+  //     ),
+  //   ),
+  // ];
+
+  late GoogleMapController mapController;
+  Set<Marker> markers = {};
 
   @override
   void initState() {
+    const marker = Marker(
+      markerId: MarkerId('marker_id_1'),
+      position: LatLng(18.079021, -15.965662),
+      infoWindow: InfoWindow(title: 'Centre de TVZ'),
+    );
+
+    setState(() {
+      markers.add(marker);
+    });
     _determinePosition();
 
     super.initState();
@@ -84,49 +97,30 @@ class _MapPageState extends State<MapPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: () async {
-        final p = await _determinePosition();
-        print(p);
-      }),
+      // floatingActionButton: FloatingActionButton(onPressed: () async {
+      //   final p = await _determinePosition();
+      //   print(p);
+      // }),
       backgroundColor: Colors.white,
       body: _currentPosition == null
-          ? const Center(child: CircularProgressIndicator())
-          : FlutterMap(
-              options: MapOptions(
-                center: LatLng(
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : GoogleMap(
+              onMapCreated: (controller) {
+                setState(() {
+                  mapController = controller;
+                });
+              },
+              initialCameraPosition: CameraPosition(
+                target: LatLng(
                   _currentPosition!.latitude,
                   _currentPosition!.longitude,
                 ),
-                zoom: 15,
+                zoom: 12,
               ),
-              nonRotatedChildren: [
-                AttributionWidget.defaultWidget(
-                  source: 'OpenStreetMap contributors',
-                  onSourceTapped: null,
-                ),
-              ],
-              children: [
-                MarkerLayer(
-                  markers: [
-                    Marker(
-                      point: LatLng(
-                        _currentPosition!.latitude,
-                        _currentPosition!.longitude,
-                      ),
-                      width: 80,
-                      height: 80,
-                      builder: (context) => const Icon(
-                        Icons.pin_drop_rounded,
-                        size: 100,
-                      ),
-                    ),
-                  ],
-                ),
-                TileLayer(
-                  urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                  userAgentPackageName: 'com.example.app',
-                ),
-              ],
+              myLocationEnabled: true,
+              markers: markers,
             ),
     );
   }

@@ -114,6 +114,26 @@ class AuthService {
   }
 }
 
+class CentreRepo {
+  Future<List<Centre>> fetchCentreList() async {
+    final response =
+        await http.get(Uri.parse('http://127.0.0.1:8000/centres/'));
+    if (response.statusCode == 200) {
+      List<dynamic> jsonList = jsonDecode(response.body);
+      List<Centre> centres = jsonList.map((e) => Centre.fromJson(e)).toList();
+      for (var i = 0; i < centres.length; i++) {
+        print(centres[i].nom);
+        print(centres[i].longitude);
+        print(centres[i].latitude);
+      }
+      // print(centres);
+      return centres;
+    } else {
+      throw Exception('Failed to load bank list');
+    }
+  }
+}
+
 class VaccinationRepo {
   static Future<Vaccination> getVaccines() async {
     if (!AuthService.isAuthenticated()) {

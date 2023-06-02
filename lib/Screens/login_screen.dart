@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vaccination/Logic/cubit/auth_cubit_cubit.dart';
 
+import '../Data/auth/auth_service.dart';
 import '../widgets/text_field.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -21,6 +22,11 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          CentreRepo().fetchCentreList();
+        },
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(

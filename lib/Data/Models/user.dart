@@ -39,6 +39,26 @@ class Vaccination {
   }
 }
 
+class Centre {
+  final String nom;
+  final String latitude;
+  final String longitude;
+
+  Centre({
+    required this.nom,
+    required this.latitude,
+    required this.longitude,
+  });
+
+  factory Centre.fromJson(Map<String, dynamic> json) {
+    return Centre(
+      nom: json['nom'],
+      latitude: json['latitude'],
+      longitude: json['longitude'],
+    );
+  }
+}
+
 class UserModel {
   final int id;
   final String nom;

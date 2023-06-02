@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 // import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:vaccination/Data/Models/user.dart';
+import 'package:vaccination/Data/auth/auth_service.dart';
 // import 'package:latlong2/latlong.dart';
 
 class MapPage extends StatefulWidget {
@@ -76,19 +78,19 @@ class _MapPageState extends State<MapPage> {
   // ];
 
   late GoogleMapController mapController;
-  Set<Marker> markers = {};
+  // Set<Marker> markers = {};
 
   @override
   void initState() {
-    const marker = Marker(
-      markerId: MarkerId('marker_id_1'),
-      position: LatLng(18.079021, -15.965662),
-      infoWindow: InfoWindow(title: 'Centre de TVZ'),
-    );
+    // const marker = Marker(
+    //   markerId: MarkerId('marker_id_1'),
+    //   position: LatLng(18.079021, -15.965662),
+    //   infoWindow: InfoWindow(title: 'Centre de TVZ'),
+    // );
 
-    setState(() {
-      markers.add(marker);
-    });
+    // setState(() {
+    //   markers.add(marker);
+    // });
     _determinePosition();
 
     super.initState();
@@ -97,37 +99,66 @@ class _MapPageState extends State<MapPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBody: true,
-      // floatingActionButton: FloatingActionButton(onPressed: () async {
-      //   final p = await _determinePosition();
-      //   print(p);
-      // }),
-      backgroundColor: Colors.white,
-      body: _currentPosition == null
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : GoogleMap(
-              onMapCreated: (controller) {
-                setState(() {
-                  mapController = controller;
-                });
-              },
-              initialCameraPosition: CameraPosition(
-                target: LatLng(
-                  _currentPosition!.latitude,
-                  _currentPosition!.longitude,
-                ),
-                zoom: 12,
-              ),
-
-              zoomControlsEnabled: false,
-              // compassEnabled: true,
-              myLocationButtonEnabled: false,
-              myLocationEnabled: true,
-              markers: markers,
-              // compassEnabled: false,
-            ),
-    );
+        extendBody: true,
+        // floatingActionButton: FloatingActionButton(onPressed: () async {
+        //   final p = await _determinePosition();
+        //   print(p);
+        // }),
+        backgroundColor: Colors.white,
+        body: _currentPosition == null
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : FutureBuilder(
+                future: CentreRepo().fetchCentreList(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    List<Centre> centres = snapshot.data!;
+                    print(
+                        '${double.parse(centres[2].latitude)} !!!!!!!!========');
+                    print('${double.parse(centres[2].longitude)} ========');
+                    return GoogleMap(
+                      onMapCreated: (controller) {
+                        setState(
+                          () {
+                            mapController = controller;
+                          },
+                        );
+                      },
+                      initialCameraPosition: CameraPosition(
+                        target: LatLng(
+                          _currentPosition!.latitude,
+                          _currentPosition!.longitude,
+                        ),
+                        zoom: 12,
+                      ),
+                      zoomControlsEnabled: false,
+                      // compassEnabled: true,
+                      myLocationButtonEnabled: false,
+                      myLocationEnabled: true,
+                      markers: Set<Marker>.from(
+                        centres.map(
+                          (centre) => Marker(
+                            markerId: MarkerId(centre.nom.toString()),
+                            position: LatLng(
+                              double.parse(centre.latitude),
+                              double.parse(centre.longitude),
+                            ),
+                            // icon: Icon(Icons.pin),
+                            infoWindow: InfoWindow(
+                              title: centre.nom,
+                            ),
+                          ),
+                        ),
+                        // compassEnabled: false,
+                      ),
+                    );
+                  } else if (snapshot.hasError) {
+                    return Text('Error ${snapshot.error}');
+                  } else {
+                    return CircularProgressIndicator();
+                  }
+                },
+              ));
   }
 }

@@ -30,6 +30,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.17.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -52,10 +55,32 @@ dependencies:
   meta: ^1.8.0
   open_file_safe: ^3.2.3
   google_maps_flutter: ^2.2.6
+  curved_navigation_bar: ^1.0.3
+  molten_navigationbar_flutter: ^1.0.1
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  flutter_native_splash: ^2.2.19
+
+flutter_native_splash:
+  image: 'Img/vaccinated.png'
+  color: "#ffffff"
+  background_image: 'Img/vaccinated.png'
+  android: true
+  ios: true
+  
+  flutter_launcher_icons: "^0.13.1"
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "Img/Group 2 (3).png"
+  min_sdk_android: 21
+
+  # The "flutter_lints" package 
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

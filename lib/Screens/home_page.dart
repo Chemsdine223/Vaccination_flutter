@@ -16,6 +16,7 @@ class _HomePageState extends State<HomePage> {
     return BlocBuilder<AuthCubitCubit, AuthCubitState>(
       builder: (context, state) {
         return Scaffold(
+          // extendBody: true,
           // floatingActionButton: FloatingActionButton(onPressed: () {}),
           backgroundColor: Colors.white,
           body: BlocBuilder<AuthCubitCubit, AuthCubitState>(
@@ -23,7 +24,8 @@ class _HomePageState extends State<HomePage> {
               if (state is AuthCubitSuccess) {
                 return Column(
                   children: [
-                    Expanded(
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
                       child: VaccinationCard(
                         nom: state.userModel.nom,
                         prenom: state.userModel.prenom,

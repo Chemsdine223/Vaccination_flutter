@@ -26,11 +26,18 @@ class PdfInvoiceService {
     String centre,
     String status,
   ) async {
+    final image =
+        (await rootBundle.load('Img/qr-code.png')).buffer.asUint8List();
+    // final image = pw.MemoryImage(
+    //   File('Img/qr-code.png').readAsBytesSync(),
+    // );
+
     final fontData =
         await rootBundle.load('fonts/JetBrainsMono-VariableFont_wght.ttf');
     final ttf = Font.ttf(fontData);
     // final customFont = pw.Font.ttf(fontData.buffer.asUint8List());
     final pdf = pw.Document();
+
     pdf.addPage(
       pw.Page(
         pageFormat: PdfPageFormat.a4,
@@ -38,23 +45,183 @@ class PdfInvoiceService {
           return pw.Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              pw.Text(name,
-                  style: TextStyle(
-                    fontSize: 36,
-                    font: ttf,
-                  )),
-              pw.SizedBox(height: 20),
-              pw.Divider(),
+              // pw.Image(image),
               pw.Center(
-                child: pw.Text(
-                  centre,
-                  style: pw.TextStyle(
-                    font: ttf,
-                    // font: pw.Font(),
+                child: pw.Text('Certificat de vaccination',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: PdfColors.red,
+                      font: ttf,
+                    )),
+              ),
+              // pw.SizedBox(height: 20),
+              pw.Divider(
+                thickness: .1,
+              ),
+              pw.Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  pw.Text('Information certificat :',
+                      style: const TextStyle(
+                        // font: ttf,
+                        decoration: TextDecoration.underline,
+                      )),
+                ],
+              ),
+              pw.Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  pw.Text(
+                    'Date du certificat',
+                    style: const TextStyle(
+                      // font: ttf,
+                      decoration: TextDecoration.underline,
+                    ),
                   ),
+                  pw.SizedBox(height: 40),
+                  pw.Text(
+                    '22/05/2023',
+                    // style: const TextStyle(
+                    //   decoration: TextDecoration.underline,
+                    // ),
+                  ),
+                ],
+              ),
+              pw.SizedBox(height: 40),
+              pw.Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  pw.Text(
+                    'Personne vacciné:',
+                    style: const TextStyle(
+                      // font: ttf,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                ],
+              ),
+              pw.SizedBox(height: 10),
+              pw.Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  pw.Text(
+                    'Nom:',
+                    style: const TextStyle(
+                      // font: ttf,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                  pw.Text(
+                    'Chemsdine',
+                  ),
+                ],
+              ),
+              pw.Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  pw.Text(
+                    'NNI:',
+                    style: const TextStyle(
+                      // font: ttf,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                  pw.Text(
+                    '3121317896',
+                  ),
+                ],
+              ),
+              pw.Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  pw.Text(
+                    'Date de naissance:',
+                    style: const TextStyle(
+                      // font: ttf,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                  pw.Text(
+                    '18/09/1999',
+                  ),
+                ],
+              ),
+              pw.SizedBox(height: 40),
+              pw.Text(
+                'Injections/centre :',
+                style: const TextStyle(
+                  // font: ttf,
+                  decoration: TextDecoration.underline,
                 ),
               ),
-              pw.Divider(),
+              pw.SizedBox(height: 10),
+
+              pw.Row(
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  pw.Text(
+                    'Dose:',
+                    style: const TextStyle(
+                      // font: ttf,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                  pw.Text(
+                    '1/1',
+                  ),
+                ],
+              ),
+              pw.Row(
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  pw.Text(
+                    'Vaccin:',
+                    style: const TextStyle(
+                      // font: ttf,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                  pw.Text(
+                    'Vysor',
+                  ),
+                ],
+              ),
+              pw.Row(
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  pw.Text(
+                    'Centre:',
+                    style: const TextStyle(
+                      // font: ttf,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                  pw.Text(
+                    'Tevragh zeina',
+                  ),
+                ],
+              ),
+              pw.Row(
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  pw.Text(
+                    'Date:',
+                    style: const TextStyle(
+                      // font: ttf,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                  pw.Text(
+                    '12/12/2012',
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+              pw.Image(
+                height: 50,
+                width: 50,
+                MemoryImage(image),
+              ),
             ],
           );
         },

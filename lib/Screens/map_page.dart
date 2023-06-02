@@ -97,6 +97,7 @@ class _MapPageState extends State<MapPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       // floatingActionButton: FloatingActionButton(onPressed: () async {
       //   final p = await _determinePosition();
       //   print(p);
@@ -119,8 +120,13 @@ class _MapPageState extends State<MapPage> {
                 ),
                 zoom: 12,
               ),
+
+              zoomControlsEnabled: false,
+              // compassEnabled: true,
+              myLocationButtonEnabled: false,
               myLocationEnabled: true,
               markers: markers,
+              // compassEnabled: false,
             ),
     );
   }

@@ -8,9 +8,11 @@ import '../Models/user.dart';
 
 //refresh url
 
-const baseUrl = 'http://127.0.0.1:8000/';
+// const baseUrl = 'http://127.0.0.1:8000/';
+const baseUrl = 'http://192.168.100.48:8000/';
+
 // const baseUrl = 'http://192.168.100.30:8000/';
-// const baseUrl = 'http://192.168.0.102:8000/';
+// const baseUrl = 'http://192.168.0.107:8000/';
 
 const login = '$baseUrl/login_P/';
 const signUpUrl = '$baseUrl/patient_rg/';
@@ -46,17 +48,19 @@ class AuthService {
   static Future<UserModel> signUp(
       String nni, String phone, String password) async {
     final uri = Uri.parse(signUpUrl);
-    final response = await http.post(uri,
-        headers: {
-          'Content-Type': 'application/json',
+    final response = await http.post(
+      uri,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode(
+        {
+          'phone_number': phone,
+          'nni': nni,
+          'password': password,
         },
-        body: jsonEncode(
-          {
-            'phone_number': phone,
-            'nni': nni,
-            'password': password,
-          },
-        ));
+      ),
+    );
 
     print(response.statusCode);
     final data = await jsonDecode(response.body);
@@ -116,8 +120,9 @@ class AuthService {
 
 class CentreRepo {
   Future<List<Centre>> fetchCentreList() async {
-    final response =
-        await http.get(Uri.parse('http://127.0.0.1:8000/centres/'));
+    final response = await http.get(
+      Uri.parse('$baseUrl/centres/'),
+    );
     if (response.statusCode == 200) {
       List<dynamic> jsonList = jsonDecode(response.body);
       List<Centre> centres = jsonList.map((e) => Centre.fromJson(e)).toList();

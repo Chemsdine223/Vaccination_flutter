@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vaccination/Logic/cubit/auth_cubit_cubit.dart';
 
-import '../Data/auth/auth_service.dart';
 import '../widgets/text_field.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -19,14 +18,23 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _nniController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _nniController.dispose();
+    _passwordController.dispose();
+    _phoneController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          CentreRepo().fetchCentreList();
-        },
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     CentreRepo().fetchCentreList();
+      //   },
+      // ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(

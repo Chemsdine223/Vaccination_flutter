@@ -144,7 +144,6 @@ class _MapPageState extends State<MapPage> {
                               double.parse(centre.latitude),
                               double.parse(centre.longitude),
                             ),
-                            // icon: Icon(Icons.pin),
                             infoWindow: InfoWindow(
                               title: centre.nom,
                             ),
@@ -154,7 +153,7 @@ class _MapPageState extends State<MapPage> {
                       ),
                     );
                   } else if (snapshot.hasError) {
-                    return Text('Error ${snapshot.error}');
+                    return Text('Helloooooo ${snapshot.error}');
                   } else {
                     return CircularProgressIndicator();
                   }

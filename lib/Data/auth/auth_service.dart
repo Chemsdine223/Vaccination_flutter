@@ -121,7 +121,7 @@ class AuthService {
 class CentreRepo {
   Future<List<Centre>> fetchCentreList() async {
     final response = await http.get(
-      Uri.parse('$baseUrl/centres/'),
+      Uri.parse('$baseUrl/centres_rest/'),
     );
     if (response.statusCode == 200) {
       List<dynamic> jsonList = jsonDecode(response.body);

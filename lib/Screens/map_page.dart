@@ -114,9 +114,9 @@ class _MapPageState extends State<MapPage> {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     List<Centre> centres = snapshot.data!;
-                    print(
-                        '${double.parse(centres[2].latitude)} !!!!!!!!========');
-                    print('${double.parse(centres[2].longitude)} ========');
+                    // print(
+                    //     '${double.parse(centres[2].latitude)} !!!!!!!!========');
+                    // print('${double.parse(centres[2].longitude)} ========');
                     return GoogleMap(
                       onMapCreated: (controller) {
                         setState(

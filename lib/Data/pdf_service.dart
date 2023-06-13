@@ -47,7 +47,7 @@ class PdfInvoiceService {
             children: [
               // pw.Image(image),
               pw.Center(
-                child: pw.Text('Certificat de vaccination',
+                child: pw.Text('Carte de vaccination',
                     style: TextStyle(
                       fontSize: 16,
                       color: PdfColors.red,

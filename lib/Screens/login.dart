@@ -15,8 +15,8 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   bool isParent = false;
   final String font = 'JetBrainsMono';
-  final TextEditingController _nniController = TextEditingController();
-  final TextEditingController _nomController = TextEditingController();
+  // final TextEditingController _nniController = TextEditingController();
+  // final TextEditingController _nomController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   @override
@@ -51,7 +51,7 @@ class _LoginState extends State<Login> {
               ),
               SizedBox(
                 // color: Colors.green,
-                height: MediaQuery.of(context).size.height / 2.7,
+                height: MediaQuery.of(context).size.height / 3,
                 child: Column(
                   // crossAxisAlignment: Cro,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -91,7 +91,7 @@ class _LoginState extends State<Login> {
                     child: MaterialButton(
                       // shape: ShapeBorder(),
                       color: Colors.greenAccent[200],
-                      onPressed: () {
+                      onPressed: () async {
                         context.read<AuthCubitCubit>().login(
                             _phoneController.text, _passwordController.text);
                         // print(isParent);

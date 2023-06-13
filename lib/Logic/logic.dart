@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:vaccination/Logic/cubit/auth_cubit_cubit.dart';
 import 'package:vaccination/Screens/home.dart';
 import 'package:vaccination/Screens/login.dart';
@@ -41,11 +42,15 @@ class _LogicState extends State<Logic> {
           },
           builder: (context, state) {
             if (state is AuthCubitLoading) {
-              return const LoadingScreen();
+              return Center(
+                child: SpinKitPulsingGrid(color: Colors.teal[700]),
+              );
             } else if (state is AuthCubitSuccess) {
               return const HomeScreen();
             } else if (state is SignUpScreen) {
               return const LoginScreen();
+            } else if (state is Starting) {
+              return LoadingScreen();
             } else {
               return const Login();
             }

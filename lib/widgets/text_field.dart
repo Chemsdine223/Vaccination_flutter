@@ -18,7 +18,8 @@ class CustomTextField extends StatelessWidget {
     required this.height,
     required this.width,
     required this.controller,
-    this.textInputType, required this.obscurity,
+    this.textInputType,
+    required this.obscurity,
   }) : super(key: key);
 
   @override
@@ -46,7 +47,6 @@ class CustomTextField extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(12.0),
             child: TextField(
-              
               obscureText: obscurity,
               // maxLengthEnforcement: MaxLengthEnforcement.none,
               // maxLengthEnforcement: MaxLengthEnforcement.enforce,

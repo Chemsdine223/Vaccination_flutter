@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vaccination/Logic/cubit/auth_cubit_cubit.dart';
+import 'package:vaccination/Screens/loading.dart';
 import 'package:vaccination/widgets/vaccination_card.dart';
 
 class HomePage extends StatefulWidget {
@@ -35,6 +36,8 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ],
                 );
+              } else if (state is AuthCubitLoading) {
+                return LoadingScreen();
               } else {
                 return Container();
               }

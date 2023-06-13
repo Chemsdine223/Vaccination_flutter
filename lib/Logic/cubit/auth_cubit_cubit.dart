@@ -10,6 +10,12 @@ part 'auth_cubit_state.dart';
 class AuthCubitCubit extends Cubit<AuthCubitState> {
   AuthCubitCubit() : super(AuthCubitInitial());
 
+  Future<void> loadingScreen() async {
+    emit(Starting());
+    await Future.delayed(Duration(seconds: 3));
+    emit(AuthCubitInitial());
+  }
+
   Future<void> login(String phone, String password) async {
     emit(AuthCubitLoading());
     await AuthService.loadTokens();

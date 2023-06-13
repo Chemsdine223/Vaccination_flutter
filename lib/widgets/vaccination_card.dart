@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 import 'package:vaccination/Logic/cubit/auth_cubit_cubit.dart';
 
@@ -100,43 +101,35 @@ class _VaccinationCardState extends State<VaccinationCard> {
                     ),
                   ),
                   Expanded(
-                      child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.document_scanner),
-                          onPressed: () async {
-                            // final data = await PdfInvoiceService.createHelloWorld();
-                            final data = await service.createHelloWorld(
-                              widget.nom,
-                              widget.centre,
-                              widget.centre,
-                              widget.status,
-                            );
-                            service.savePdfFile('fileName', data);
-                          },
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Image.asset(
-                            'Img/qr-code.png',
-                            height: 100,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.document_scanner),
+                            onPressed: () async {
+                              // final data = await PdfInvoiceService.createHelloWorld();
+                              final data = await service.createHelloWorld(
+                                widget.nom,
+                                widget.centre,
+                                widget.centre,
+                                widget.status,
+                              );
+                              service.savePdfFile('Vaccination', data);
+                            },
                           ),
-                        ),
-                        // Text('data'),
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: QrImageView(
+                              data:
+                                  'Nom: ${widget.nom}\nPrenom: ${widget.prenom}\nCentre: ${widget.centre}\n',
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   )
-                      // Align(
-                      //   alignment: Alignment.bottomRight,
-                      //   child: Padding(
-                      //     padding: EdgeInsets.all(8.0),
-                      //     child: Text('data'),
-                      //   ),
-                      // ),
-                      )
                 ],
               ),
             ),

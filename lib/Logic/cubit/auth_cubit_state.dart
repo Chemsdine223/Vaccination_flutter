@@ -13,6 +13,11 @@ class AuthCubitLoading extends AuthCubitState {
   List<Object?> get props => [];
 }
 
+class Starting extends AuthCubitState {
+  @override
+  List<Object?> get props => [];
+}
+
 class AuthCubitSuccess extends AuthCubitState {
   final UserModel userModel;
   final Vaccination vaccination;

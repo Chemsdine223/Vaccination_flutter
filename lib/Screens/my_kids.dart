@@ -11,42 +11,21 @@ class _MyChildrenScreenState extends State<MyChildrenScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // extendBody: true,
       backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
-            // const Text(
-            //   'Mes enfants',
-            //   style: TextStyle(
-            //     fontSize: 30,
-            //     fontWeight: FontWeight.bold,
-            //     fontFamily: 'JetBrainsMono',
-            //     wordSpacing: 1,
-            //   ),
-            // ),
-            // Expanded(
-            //   child: PageView(
-            //     scrollDirection: Axis.vertical,
-            //     children: const [
-            //       VaccinationCard(
-            //         color: Colors.grey,
-            //         centre: '',
-            //         nom: '',
-            //         prenom: '',
-            //       ),
-            //       VaccinationCard(
-            //         color: Colors.red,
-            //         centre: '',
-            //         nom: '',
-            //         prenom: '',
-            //       ),
-            //     ],
-            //   ),
-            // ),
-          ],
-        ),
+      body: Column(
+        children: [
+          SizedBox(
+            height: MediaQuery.of(context).size.height / 6,
+          ),
+          Center(
+            child: Image.asset(
+              'Img/check.png',
+              height: MediaQuery.of(context).size.height / 3,
+            ),
+          ),
+          Text('Traitement fini avec success !')
+        ],
       ),
     );
   }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vaccination/Logic/cubit/auth_cubit_cubit.dart';
 
+import '../Data/auth/auth_service.dart';
 import '../widgets/text_field.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -81,16 +82,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     Center(
                       child: CustomTextField(
-                        obscurity: true,
+                        obscurity: false,
+                        maxLength: 10,
                         fieldName: 'NNI :',
+                        textInputType: TextInputType.number,
                         height: MediaQuery.of(context).size.height / 16,
                         width: MediaQuery.of(context).size.width / 1.1,
                         controller: _nniController,
                       ),
                     ),
                     CustomTextField(
-                      obscurity: true,
+                      obscurity: false,
                       textInputType: TextInputType.number,
+                      maxLength: 8,
                       fieldName: 'Phone :',
                       height: MediaQuery.of(context).size.height / 16,
                       width: MediaQuery.of(context).size.width / 1.1,
@@ -118,11 +122,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       // shape: ShapeBorder(),
                       color: Colors.greenAccent[200],
                       onPressed: () {
-                        // AuthService.signUp(
-                        //   _nniController.text,
-                        //   _phoneController.text,
-                        //   _passwordController.text,
-                        // );
+                        AuthService.signUp(
+                          _nniController.text,
+                          _phoneController.text,
+                          _passwordController.text,
+                        );
                       },
                       child: const Text(
                         'S\'inscrire',
